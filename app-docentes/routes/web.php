@@ -32,6 +32,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// Rutas de profesores: materias del periodo activo
+Route::middleware(['auth', 'role:profesor'])->group(function () {
+    Route::get('/mis-materias', [\App\Http\Controllers\Profesor\MateriaController::class, 'index'])->name('materias.index');
+    Route::get('/mis-materias/{grupo}', [\App\Http\Controllers\Profesor\MateriaController::class, 'show'])->name('materias.show');
+});
+
 // Rutas exclusivas de administración
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');

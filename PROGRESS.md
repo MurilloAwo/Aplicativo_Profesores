@@ -46,8 +46,8 @@ Leyenda: `[x]` hecha y probada · `[~]` implementada, sin probar · `[ ]` pendie
 - [x] Pruebas Feature de cada CRUD — `AdminCrudTest` (7 pruebas, 65 aserciones) OK
 
 ## F4. Mis materias
-- [ ] Vista "Mis materias" del periodo activo (solo grupos del profesor)
-- [ ] Pruebas Feature
+- [x] Vista "Mis materias" del periodo activo (solo grupos del profesor)
+- [x] Pruebas Feature — `MisMateriasTest` (4 pruebas, 12 aserciones) OK
 
 ## F5. Actividades
 - [ ] CRUD de actividades (borrador / registrada), multigrupo
