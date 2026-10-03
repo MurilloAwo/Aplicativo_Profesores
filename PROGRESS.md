@@ -57,11 +57,11 @@ Leyenda: `[x]` hecha y probada · `[~]` implementada, sin probar · `[ ]` pendie
 - [x] Pruebas Feature (incl. profesor no accede a datos de otro) — `ActividadesEvidenciasTest` (10 pruebas, 43 aserciones) OK
 
 ## F6. Resumen semestral
-- [ ] Servicio de agregación del resumen (por periodo)
-- [ ] Vista en pantalla con filtro de periodo
-- [ ] Export PDF (encabezado institucional configurable)
-- [ ] Export Excel (una hoja por sección)
-- [ ] Pruebas Feature
+- [x] Servicio de agregación del resumen (por periodo)
+- [x] Vista en pantalla con filtro de periodo
+- [x] Export PDF (encabezado institucional configurable)
+- [x] Export Excel (una hoja por sección)
+- [x] Pruebas Feature — `ResumenSemestralTest` (4 pruebas, 24 aserciones) OK
 
 ## F7. Consolidado del departamento (admin)
 - [ ] Vista consolidada por periodo

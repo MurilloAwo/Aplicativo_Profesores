@@ -6,7 +6,7 @@
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight mt-1">
                     {{ __('Registrar Nueva Actividad Docente') }}
                 </h2>
-                <p class="text-xs text-gray-500">Periodo Académico: {{ $periodo->codigo }} ({{ $periodo->nombre }})</p>
+                <p class="text-xs text-gray-500">Periodo Académico: {{ $periodo->codigo }} ({{ $periodo->fecha_inicio?->format('d/m/Y') }} al {{ $periodo->fecha_fin?->format('d/m/Y') }})</p>
             </div>
         </div>
     </x-slot>

@@ -61,6 +61,8 @@ Variables obligatorias en `.env`: `APP_ENV=production`, `APP_DEBUG=false`, `APP_
 | laravel/sanctum | ^3.3 | (skeleton) | — |
 | laravel/tinker | ^2.8 | (skeleton) | — |
 | laravel/breeze (dev) | ^1.29 | 1.29.1 | Node ≥ 18 para compilar assets (Vite 5, Tailwind) |
+| barryvdh/laravel-dompdf | ^3.1 | 3.1.0 | ext-gd, ext-mbstring, dompdf/dompdf ^3.0 |
+| maatwebsite/excel | ~3.1.55 | 3.1.70 | ext-gd, ext-zip, ext-xml, PhpSpreadsheet ^1.30 |
 
 ## Avisos de seguridad aceptados (Laravel 10 sin soporte)
 Laravel 10 está fuera de soporte de seguridad. `composer.json` ignora **solo** estos avisos

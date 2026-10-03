@@ -47,6 +47,11 @@ Route::middleware(['auth', 'active', 'role:profesor,admin'])->group(function () 
     Route::post('actividades/{actividad}/evidencias', [EvidenciaController::class, 'store'])->name('actividades.evidencias.store');
     Route::get('evidencias/{evidencia}/descargar', [EvidenciaController::class, 'download'])->name('evidencias.download');
     Route::delete('evidencias/{evidencia}', [EvidenciaController::class, 'destroy'])->name('evidencias.destroy');
+
+    // Resumen semestral en pantalla, PDF y Excel
+    Route::get('/resumen-semestral', [\App\Http\Controllers\Profesor\ResumenSemestralController::class, 'index'])->name('resumen.index');
+    Route::get('/resumen-semestral/pdf', [\App\Http\Controllers\Profesor\ResumenSemestralController::class, 'exportPdf'])->name('resumen.pdf');
+    Route::get('/resumen-semestral/excel', [\App\Http\Controllers\Profesor\ResumenSemestralController::class, 'exportExcel'])->name('resumen.excel');
 });
 
 // Rutas exclusivas de administración
