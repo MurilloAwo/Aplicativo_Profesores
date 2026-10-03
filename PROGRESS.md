@@ -23,9 +23,9 @@ Leyenda: `[x]` hecha y probada · `[~]` implementada, sin probar · `[ ]` pendie
 - [x] Migraciones: tipos_actividad, entidades_externas, actividades (soft deletes), actividad_grupo
 - [x] Migraciones: evidencias, criterios_acreditacion, actividad_criterio — `EsquemaBaseDatosTest` (17 pruebas) OK
 - [x] Modelos Eloquent con relaciones y casts — `ModelosRelacionesTest` (3 pruebas, 34 aserciones) OK
-- [ ] Factories
-- [ ] Seeders: 1 admin, 3 profesores, 2 periodos, 6 asignaturas, grupos, catálogo de tipos de actividad
-- [ ] Pruebas de relaciones y seeders
+- [x] Factories (todas las entidades del modelo con soporte de estados)
+- [x] Seeders: 1 admin, 3 profesores, 2 periodos, 6 asignaturas, grupos, catálogo de tipos de actividad (criterios vacío)
+- [x] Pruebas de relaciones y seeders — `DatabaseSeederTest` (2 pruebas, 33 aserciones) OK
 
 ## F2. Roles y autorización
 - [ ] Middleware de rol (registrado en `app/Http/Kernel.php`)

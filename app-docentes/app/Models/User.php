@@ -76,11 +76,17 @@ class User extends Authenticatable
 
     protected static function booted(): void
     {
-        // `name` (usado por Breeze) se mantiene como nombre completo.
+        // `name` (usado por Breeze) se sincroniza con nombres y apellidos
         static::saving(function (User $user) {
-            $completo = trim(($user->nombres ?? '').' '.($user->apellidos ?? ''));
-            if ($completo !== '') {
-                $user->name = $completo;
+            if ($user->isDirty(['nombres', 'apellidos'])) {
+                $completo = trim(($user->nombres ?? '').' '.($user->apellidos ?? ''));
+                if ($completo !== '') {
+                    $user->name = $completo;
+                }
+            } elseif ($user->isDirty('name') && ! empty($user->name)) {
+                $partes = explode(' ', trim($user->name), 2);
+                $user->nombres = $partes[0];
+                $user->apellidos = $partes[1] ?? '';
             }
         });
     }
