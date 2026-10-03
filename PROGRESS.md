@@ -28,11 +28,11 @@ Leyenda: `[x]` hecha y probada · `[~]` implementada, sin probar · `[ ]` pendie
 - [x] Pruebas de relaciones y seeders — `DatabaseSeederTest` (2 pruebas, 33 aserciones) OK
 
 ## F2. Roles y autorización
-- [ ] Middleware de rol (registrado en `app/Http/Kernel.php`)
-- [ ] Policies: Grupo, Actividad, Evidencia (+ admin bypass con `before`)
-- [ ] Regla: periodo cerrado = solo lectura (salvo reapertura por admin)
-- [ ] Menú de navegación según rol
-- [ ] Pruebas de acceso por rol
+- [x] Middleware de rol (`EnsureUserHasRole`) y usuario activo (`EnsureUserIsActive`) registrados en `app/Http/Kernel.php`
+- [x] Policies: Grupo, Actividad, Evidencia (+ admin bypass con `before` en `app/Providers/AuthServiceProvider.php`)
+- [x] Regla: periodo cerrado = solo lectura (validada en ActividadPolicy y EvidenciaPolicy)
+- [x] Menú de navegación según rol (badge, enlaces condicionales y textos en español)
+- [x] Pruebas de acceso por rol — `AutorizacionYRolesTest` (6 pruebas, 47 aserciones) OK
 
 ## F3. CRUD admin
 - [ ] Usuarios
