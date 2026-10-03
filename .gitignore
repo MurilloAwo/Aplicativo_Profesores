@@ -1,0 +1,11 @@
+# Raíz del repositorio (el proyecto Laravel tendrá su propio .gitignore en app-docentes/)
+.env
+.env.*
+!.env.example
+/vendor/
+/node_modules/
+.idea/
+.vscode/
+Thumbs.db
+desktop.ini
+.DS_Store
