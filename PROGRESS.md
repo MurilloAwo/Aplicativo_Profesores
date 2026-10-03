@@ -22,7 +22,7 @@ Leyenda: `[x]` hecha y probada · `[~]` implementada, sin probar · `[ ]` pendie
 - [x] Migraciones: users (campos extra), programas_curriculares, periodos_academicos, asignaturas, grupos
 - [x] Migraciones: tipos_actividad, entidades_externas, actividades (soft deletes), actividad_grupo
 - [x] Migraciones: evidencias, criterios_acreditacion, actividad_criterio — `EsquemaBaseDatosTest` (17 pruebas) OK
-- [ ] Modelos Eloquent con relaciones y casts
+- [x] Modelos Eloquent con relaciones y casts — `ModelosRelacionesTest` (3 pruebas, 34 aserciones) OK
 - [ ] Factories
 - [ ] Seeders: 1 admin, 3 profesores, 2 periodos, 6 asignaturas, grupos, catálogo de tipos de actividad
 - [ ] Pruebas de relaciones y seeders
