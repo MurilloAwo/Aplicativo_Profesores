@@ -64,9 +64,9 @@ Leyenda: `[x]` hecha y probada · `[~]` implementada, sin probar · `[ ]` pendie
 - [x] Pruebas Feature — `ResumenSemestralTest` (4 pruebas, 24 aserciones) OK
 
 ## F7. Consolidado del departamento (admin)
-- [ ] Vista consolidada por periodo
-- [ ] Export PDF / Excel
-- [ ] Pruebas Feature
+- [x] Vista consolidada por periodo
+- [x] Export PDF / Excel
+- [x] Pruebas Feature — `ConsolidadoAdminTest` (5 pruebas, 27 aserciones) OK
 
 ## F8. Endurecimiento
 - [ ] Form Requests en todos los formularios

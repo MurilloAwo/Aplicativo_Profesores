@@ -37,6 +37,10 @@
                class="px-3 py-1.5 rounded-md {{ request()->routeIs('admin.criterios.*') ? 'bg-emerald-700 text-white font-semibold' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100' }}">
                 Criterios Acreditación
             </a>
+            <a href="{{ route('admin.consolidado.index') }}"
+               class="px-3 py-1.5 rounded-md {{ request()->routeIs('admin.consolidado.*') ? 'bg-purple-800 text-white font-semibold' : 'text-purple-700 font-semibold hover:text-purple-900 hover:bg-purple-50' }}">
+                Consolidado
+            </a>
         </div>
     </div>
 </div>

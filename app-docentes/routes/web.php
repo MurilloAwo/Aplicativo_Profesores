@@ -74,6 +74,11 @@ Route::middleware(['auth', 'active', 'role:admin'])->prefix('admin')->name('admi
 
     Route::resource('entidades', EntidadExternaController::class);
     Route::resource('criterios', CriterioAcreditacionController::class);
+
+    // Consolidado departamental
+    Route::get('consolidado', [\App\Http\Controllers\Admin\ConsolidadoDepartamentoController::class, 'index'])->name('consolidado.index');
+    Route::get('consolidado/pdf', [\App\Http\Controllers\Admin\ConsolidadoDepartamentoController::class, 'exportPdf'])->name('consolidado.pdf');
+    Route::get('consolidado/excel', [\App\Http\Controllers\Admin\ConsolidadoDepartamentoController::class, 'exportExcel'])->name('consolidado.excel');
 });
 
 require __DIR__.'/auth.php';
