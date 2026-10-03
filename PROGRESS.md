@@ -35,15 +35,15 @@ Leyenda: `[x]` hecha y probada · `[~]` implementada, sin probar · `[ ]` pendie
 - [x] Pruebas de acceso por rol — `AutorizacionYRolesTest` (6 pruebas, 47 aserciones) OK
 
 ## F3. CRUD admin
-- [ ] Usuarios
-- [ ] Periodos académicos (activar uno solo / cerrar / reabrir)
-- [ ] Programas curriculares
-- [ ] Asignaturas
-- [ ] Grupos (asignación de profesor)
-- [ ] Catálogo tipos de actividad
-- [ ] Catálogo entidades externas
-- [ ] Catálogo criterios de acreditación (vacío por defecto)
-- [ ] Pruebas Feature de cada CRUD
+- [x] Usuarios (creación con datos institucionales, edición, toggle activo)
+- [x] Periodos académicos (activar uno solo garantizado por transacción / cerrar / reabrir)
+- [x] Programas curriculares
+- [x] Asignaturas
+- [x] Grupos (asignación de profesor, validación de grupo único por asignatura y periodo)
+- [x] Catálogo tipos de actividad (categorías, flag entidad externa, toggle activo)
+- [x] Catálogo entidades externas
+- [x] Catálogo criterios de acreditación (vacío por defecto, editable)
+- [x] Pruebas Feature de cada CRUD — `AdminCrudTest` (7 pruebas, 65 aserciones) OK
 
 ## F4. Mis materias
 - [ ] Vista "Mis materias" del periodo activo (solo grupos del profesor)

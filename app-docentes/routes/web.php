@@ -1,5 +1,14 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\AsignaturaController;
+use App\Http\Controllers\Admin\CriterioAcreditacionController;
+use App\Http\Controllers\Admin\EntidadExternaController;
+use App\Http\Controllers\Admin\GrupoController;
+use App\Http\Controllers\Admin\PeriodoAcademicoController;
+use App\Http\Controllers\Admin\ProgramaCurricularController;
+use App\Http\Controllers\Admin\TipoActividadController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -7,11 +16,6 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
 */
 
 Route::get('/', function () {
@@ -26,6 +30,28 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+// Rutas exclusivas de administración
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
+
+    Route::patch('usuarios/{usuario}/toggle-activo', [UserController::class, 'toggleActivo'])->name('usuarios.toggle-activo');
+    Route::resource('usuarios', UserController::class)->parameters(['usuarios' => 'usuario']);
+
+    Route::patch('periodos/{periodo}/activar', [PeriodoAcademicoController::class, 'activar'])->name('periodos.activar');
+    Route::patch('periodos/{periodo}/toggle-cerrado', [PeriodoAcademicoController::class, 'toggleCerrado'])->name('periodos.toggle-cerrado');
+    Route::resource('periodos', PeriodoAcademicoController::class);
+
+    Route::resource('programas', ProgramaCurricularController::class);
+    Route::resource('asignaturas', AsignaturaController::class);
+    Route::resource('grupos', GrupoController::class);
+
+    Route::patch('tipos-actividad/{tipos_actividad}/toggle-activo', [TipoActividadController::class, 'toggleActivo'])->name('tipos-actividad.toggle-activo');
+    Route::resource('tipos-actividad', TipoActividadController::class);
+
+    Route::resource('entidades', EntidadExternaController::class);
+    Route::resource('criterios', CriterioAcreditacionController::class);
 });
 
 require __DIR__.'/auth.php';
