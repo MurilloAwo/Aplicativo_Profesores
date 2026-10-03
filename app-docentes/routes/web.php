@@ -9,6 +9,9 @@ use App\Http\Controllers\Admin\PeriodoAcademicoController;
 use App\Http\Controllers\Admin\ProgramaCurricularController;
 use App\Http\Controllers\Admin\TipoActividadController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Profesor\ActividadController;
+use App\Http\Controllers\Profesor\EvidenciaController;
+use App\Http\Controllers\Profesor\MateriaController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -33,13 +36,21 @@ Route::middleware('auth')->group(function () {
 });
 
 // Rutas de profesores: materias del periodo activo
-Route::middleware(['auth', 'role:profesor'])->group(function () {
-    Route::get('/mis-materias', [\App\Http\Controllers\Profesor\MateriaController::class, 'index'])->name('materias.index');
-    Route::get('/mis-materias/{grupo}', [\App\Http\Controllers\Profesor\MateriaController::class, 'show'])->name('materias.show');
+Route::middleware(['auth', 'active', 'role:profesor'])->group(function () {
+    Route::get('/mis-materias', [MateriaController::class, 'index'])->name('materias.index');
+    Route::get('/mis-materias/{grupo}', [MateriaController::class, 'show'])->name('materias.show');
+});
+
+// Rutas de actividades y evidencias (profesor y administrador)
+Route::middleware(['auth', 'active', 'role:profesor,admin'])->group(function () {
+    Route::resource('actividades', ActividadController::class)->parameters(['actividades' => 'actividad']);
+    Route::post('actividades/{actividad}/evidencias', [EvidenciaController::class, 'store'])->name('actividades.evidencias.store');
+    Route::get('evidencias/{evidencia}/descargar', [EvidenciaController::class, 'download'])->name('evidencias.download');
+    Route::delete('evidencias/{evidencia}', [EvidenciaController::class, 'destroy'])->name('evidencias.destroy');
 });
 
 // Rutas exclusivas de administración
-Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'active', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
 
     Route::patch('usuarios/{usuario}/toggle-activo', [UserController::class, 'toggleActivo'])->name('usuarios.toggle-activo');

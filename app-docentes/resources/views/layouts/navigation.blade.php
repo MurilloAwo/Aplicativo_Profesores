@@ -23,6 +23,11 @@
                                 {{ __('Mis Materias') }}
                             </x-nav-link>
                         @endif
+                        @if (Route::has('actividades.index'))
+                            <x-nav-link :href="route('actividades.index')" :active="request()->routeIs('actividades.*')">
+                                {{ __('Actividades') }}
+                            </x-nav-link>
+                        @endif
                         @if (Route::has('resumen.index'))
                             <x-nav-link :href="route('resumen.index')" :active="request()->routeIs('resumen.*')">
                                 {{ __('Resumen Semestral') }}
@@ -106,6 +111,11 @@
                 @if (Route::has('materias.index'))
                     <x-responsive-nav-link :href="route('materias.index')" :active="request()->routeIs('materias.*')">
                         {{ __('Mis Materias') }}
+                    </x-responsive-nav-link>
+                @endif
+                @if (Route::has('actividades.index'))
+                    <x-responsive-nav-link :href="route('actividades.index')" :active="request()->routeIs('actividades.*')">
+                        {{ __('Actividades') }}
                     </x-responsive-nav-link>
                 @endif
                 @if (Route::has('resumen.index'))

@@ -50,11 +50,11 @@ Leyenda: `[x]` hecha y probada · `[~]` implementada, sin probar · `[ ]` pendie
 - [x] Pruebas Feature — `MisMateriasTest` (4 pruebas, 12 aserciones) OK
 
 ## F5. Actividades
-- [ ] CRUD de actividades (borrador / registrada), multigrupo
-- [ ] Evidencias: subida a disco `local` privado, máx. 10 MB, jpg/png/pdf/docx/xlsx
-- [ ] Descarga de evidencias vía controlador autorizado
-- [ ] Asociación con criterios de acreditación
-- [ ] Pruebas Feature (incl. profesor no accede a datos de otro)
+- [x] CRUD de actividades (borrador / registrada), multigrupo
+- [x] Evidencias: subida a disco `local` privado, máx. 10 MB, jpg/png/pdf/docx/xlsx
+- [x] Descarga de evidencias vía controlador autorizado
+- [x] Asociación con criterios de acreditación
+- [x] Pruebas Feature (incl. profesor no accede a datos de otro) — `ActividadesEvidenciasTest` (10 pruebas, 43 aserciones) OK
 
 ## F6. Resumen semestral
 - [ ] Servicio de agregación del resumen (por periodo)
