@@ -19,9 +19,9 @@ Leyenda: `[x]` hecha y probada · `[~]` implementada, sin probar · `[ ]` pendie
 - [x] Configurar `phpunit.xml` para pruebas con SQLite en memoria — `php artisan test`: 25 pruebas OK
 
 ## F1. Modelo de datos
-- [ ] Migraciones: users (campos extra), programas_curriculares, periodos_academicos, asignaturas, grupos
-- [ ] Migraciones: tipos_actividad, entidades_externas, actividades (soft deletes), actividad_grupo
-- [ ] Migraciones: evidencias, criterios_acreditacion, actividad_criterio
+- [x] Migraciones: users (campos extra), programas_curriculares, periodos_academicos, asignaturas, grupos
+- [x] Migraciones: tipos_actividad, entidades_externas, actividades (soft deletes), actividad_grupo
+- [x] Migraciones: evidencias, criterios_acreditacion, actividad_criterio — `EsquemaBaseDatosTest` (17 pruebas) OK
 - [ ] Modelos Eloquent con relaciones y casts
 - [ ] Factories
 - [ ] Seeders: 1 admin, 3 profesores, 2 periodos, 6 asignaturas, grupos, catálogo de tipos de actividad
@@ -111,6 +111,16 @@ Leyenda: `[x]` hecha y probada · `[~]` implementada, sin probar · `[ ]` pendie
 - `config/app.php`: `timezone`, `locale`, `fallback_locale` leen `APP_TIMEZONE`/`APP_LOCALE`
   (por defecto `America/Bogota`/`es`); `faker_locale` = `es_ES`.
 - Pruebas automatizadas con SQLite en memoria (`phpunit.xml`), sin depender de MySQL.
+- F1 esquema (aprobado):
+  - `users`: migración nueva (no se editó la de Breeze). Se conserva `name` = nombre completo.
+    `dedicacion`, `categoria` y `tipologia` (asignaturas) son texto libre: los valores
+    institucionales no se inventan.
+  - `periodos_academicos`: `activo` (uno solo, garantizado por la app en F3) + `cerrado` (solo lectura,
+    reabrible por admin).
+  - `actividades.grupo_id` = grupo principal; `actividad_grupo` incluye todos los grupos (también el principal).
+  - Invitado separado en `nombre_invitado` y `cargo_invitado`. Columna `tamano` (sin ñ) en `evidencias`.
+  - Borrado: catálogos con `restrictOnDelete`; evidencias/pivotes en cascada; entidad externa → `null`.
+  - Valores de enum sin tildes (`hibrida`, `catedra`); las etiquetas con tilde se mostrarán en la UI.
 
 ## Supuestos
 - Nombre de la carpeta del proyecto Laravel: `app-docentes/` (cambiable).
