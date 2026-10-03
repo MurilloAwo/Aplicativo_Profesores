@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\StoreTipoActividadRequest;
+use App\Http\Requests\Admin\UpdateTipoActividadRequest;
 use App\Models\TipoActividad;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -23,16 +25,9 @@ class TipoActividadController extends Controller
         return view('admin.tipos_actividad.create');
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(StoreTipoActividadRequest $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'nombre' => ['required', 'string', 'max:255', 'unique:tipos_actividad,nombre'],
-            'descripcion' => ['nullable', 'string'],
-            'categoria' => ['required', Rule::in(array_keys(TipoActividad::CATEGORIAS))],
-            'requiere_entidad_externa' => ['boolean'],
-            'activo' => ['boolean'],
-        ]);
-
+        $validated = $request->validated();
         $validated['requiere_entidad_externa'] = $request->boolean('requiere_entidad_externa');
         $validated['activo'] = $request->boolean('activo', true);
 
@@ -49,16 +44,9 @@ class TipoActividadController extends Controller
         return view('admin.tipos_actividad.edit', compact('tipo'));
     }
 
-    public function update(Request $request, TipoActividad $tipos_actividad): RedirectResponse
+    public function update(UpdateTipoActividadRequest $request, TipoActividad $tipos_actividad): RedirectResponse
     {
-        $validated = $request->validate([
-            'nombre' => ['required', 'string', 'max:255', Rule::unique('tipos_actividad')->ignore($tipos_actividad->id)],
-            'descripcion' => ['nullable', 'string'],
-            'categoria' => ['required', Rule::in(array_keys(TipoActividad::CATEGORIAS))],
-            'requiere_entidad_externa' => ['boolean'],
-            'activo' => ['boolean'],
-        ]);
-
+        $validated = $request->validated();
         $validated['requiere_entidad_externa'] = $request->boolean('requiere_entidad_externa');
         $validated['activo'] = $request->boolean('activo');
 

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\StoreGrupoRequest;
+use App\Http\Requests\Admin\UpdateGrupoRequest;
 use App\Models\Asignatura;
 use App\Models\Grupo;
 use App\Models\PeriodoAcademico;
@@ -45,21 +47,9 @@ class GrupoController extends Controller
         return view('admin.grupos.create', compact('asignaturas', 'periodos', 'profesores'));
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(StoreGrupoRequest $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'asignatura_id' => ['required', 'exists:asignaturas,id'],
-            'periodo_academico_id' => ['required', 'exists:periodos_academicos,id'],
-            'profesor_id' => ['required', 'exists:users,id'],
-            'numero_grupo' => [
-                'required', 'string', 'max:10',
-                Rule::unique('grupos')->where(fn ($q) => $q->where('asignatura_id', $request->asignatura_id)
-                    ->where('periodo_academico_id', $request->periodo_academico_id)),
-            ],
-            'modalidad' => ['required', Rule::in(['presencial', 'virtual', 'hibrida'])],
-            'horario' => ['nullable', 'string', 'max:255'],
-            'numero_estudiantes' => ['required', 'integer', 'min:0', 'max:500'],
-        ]);
+        $validated = $request->validated();
 
         Grupo::create($validated);
 
@@ -76,22 +66,9 @@ class GrupoController extends Controller
         return view('admin.grupos.edit', compact('grupo', 'asignaturas', 'periodos', 'profesores'));
     }
 
-    public function update(Request $request, Grupo $grupo): RedirectResponse
+    public function update(UpdateGrupoRequest $request, Grupo $grupo): RedirectResponse
     {
-        $validated = $request->validate([
-            'asignatura_id' => ['required', 'exists:asignaturas,id'],
-            'periodo_academico_id' => ['required', 'exists:periodos_academicos,id'],
-            'profesor_id' => ['required', 'exists:users,id'],
-            'numero_grupo' => [
-                'required', 'string', 'max:10',
-                Rule::unique('grupos')->ignore($grupo->id)
-                    ->where(fn ($q) => $q->where('asignatura_id', $request->asignatura_id)
-                        ->where('periodo_academico_id', $request->periodo_academico_id)),
-            ],
-            'modalidad' => ['required', Rule::in(['presencial', 'virtual', 'hibrida'])],
-            'horario' => ['nullable', 'string', 'max:255'],
-            'numero_estudiantes' => ['required', 'integer', 'min:0', 'max:500'],
-        ]);
+        $validated = $request->validated();
 
         $grupo->update($validated);
 

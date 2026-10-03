@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\StoreUserRequest;
+use App\Http\Requests\Admin\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -41,19 +43,9 @@ class UserController extends Controller
         return view('admin.usuarios.create');
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(StoreUserRequest $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'nombres' => ['required', 'string', 'max:100'],
-            'apellidos' => ['required', 'string', 'max:100'],
-            'documento' => ['required', 'string', 'max:30', 'unique:users,documento'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            'password' => ['required', Password::defaults()],
-            'rol' => ['required', Rule::in([User::ROL_ADMIN, User::ROL_PROFESOR])],
-            'tipo_vinculacion' => ['nullable', Rule::in(['planta', 'ocasional', 'catedra'])],
-            'dedicacion' => ['nullable', 'string', 'max:50'],
-            'categoria' => ['nullable', 'string', 'max:50'],
-        ]);
+        $validated = $request->validated();
 
         $user = new User([
             'nombres' => $validated['nombres'],
@@ -78,19 +70,9 @@ class UserController extends Controller
         return view('admin.usuarios.edit', compact('usuario'));
     }
 
-    public function update(Request $request, User $usuario): RedirectResponse
+    public function update(UpdateUserRequest $request, User $usuario): RedirectResponse
     {
-        $validated = $request->validate([
-            'nombres' => ['required', 'string', 'max:100'],
-            'apellidos' => ['required', 'string', 'max:100'],
-            'documento' => ['required', 'string', 'max:30', Rule::unique('users')->ignore($usuario->id)],
-            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($usuario->id)],
-            'password' => ['nullable', Password::defaults()],
-            'rol' => ['required', Rule::in([User::ROL_ADMIN, User::ROL_PROFESOR])],
-            'tipo_vinculacion' => ['nullable', Rule::in(['planta', 'ocasional', 'catedra'])],
-            'dedicacion' => ['nullable', 'string', 'max:50'],
-            'categoria' => ['nullable', 'string', 'max:50'],
-        ]);
+        $validated = $request->validated();
 
         $usuario->fill([
             'nombres' => $validated['nombres'],

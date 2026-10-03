@@ -56,7 +56,9 @@ class ResumenSemestralController extends Controller
     public function exportPdf(Request $request): Response
     {
         $user = $request->user();
-        $periodo = PeriodoAcademico::findOrFail($request->input('periodo_id'));
+        $periodo = $request->filled('periodo_id')
+            ? PeriodoAcademico::findOrFail($request->input('periodo_id'))
+            : (PeriodoAcademico::actual() ?? abort(404, 'No hay período académico activo disponible.'));
 
         $resumen = $this->service->obtenerResumenProfesor($user, $periodo);
 
@@ -73,7 +75,9 @@ class ResumenSemestralController extends Controller
     public function exportExcel(Request $request): BinaryFileResponse
     {
         $user = $request->user();
-        $periodo = PeriodoAcademico::findOrFail($request->input('periodo_id'));
+        $periodo = $request->filled('periodo_id')
+            ? PeriodoAcademico::findOrFail($request->input('periodo_id'))
+            : (PeriodoAcademico::actual() ?? abort(404, 'No hay período académico activo disponible.'));
 
         $resumen = $this->service->obtenerResumenProfesor($user, $periodo);
 

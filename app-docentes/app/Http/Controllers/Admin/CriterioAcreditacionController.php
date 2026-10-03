@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\StoreCriterioRequest;
+use App\Http\Requests\Admin\UpdateCriterioRequest;
 use App\Models\CriterioAcreditacion;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -23,13 +25,9 @@ class CriterioAcreditacionController extends Controller
         return view('admin.criterios.create');
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(StoreCriterioRequest $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'codigo' => ['required', 'string', 'max:30', 'unique:criterios_acreditacion,codigo'],
-            'nombre' => ['required', 'string', 'max:255'],
-            'descripcion' => ['nullable', 'string'],
-        ]);
+        $validated = $request->validated();
 
         CriterioAcreditacion::create($validated);
 
@@ -42,13 +40,9 @@ class CriterioAcreditacionController extends Controller
         return view('admin.criterios.edit', compact('criterio'));
     }
 
-    public function update(Request $request, CriterioAcreditacion $criterio): RedirectResponse
+    public function update(UpdateCriterioRequest $request, CriterioAcreditacion $criterio): RedirectResponse
     {
-        $validated = $request->validate([
-            'codigo' => ['required', 'string', 'max:30', Rule::unique('criterios_acreditacion')->ignore($criterio->id)],
-            'nombre' => ['required', 'string', 'max:255'],
-            'descripcion' => ['nullable', 'string'],
-        ]);
+        $validated = $request->validated();
 
         $criterio->update($validated);
 

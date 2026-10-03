@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\StoreProgramaRequest;
+use App\Http\Requests\Admin\UpdateProgramaRequest;
 use App\Models\ProgramaCurricular;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -23,13 +25,9 @@ class ProgramaCurricularController extends Controller
         return view('admin.programas.create');
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(StoreProgramaRequest $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'codigo' => ['required', 'string', 'max:20', 'unique:programas_curriculares,codigo'],
-            'nombre' => ['required', 'string', 'max:255'],
-            'nivel' => ['required', Rule::in(['pregrado', 'posgrado'])],
-        ]);
+        $validated = $request->validated();
 
         ProgramaCurricular::create($validated);
 
@@ -42,13 +40,9 @@ class ProgramaCurricularController extends Controller
         return view('admin.programas.edit', compact('programa'));
     }
 
-    public function update(Request $request, ProgramaCurricular $programa): RedirectResponse
+    public function update(UpdateProgramaRequest $request, ProgramaCurricular $programa): RedirectResponse
     {
-        $validated = $request->validate([
-            'codigo' => ['required', 'string', 'max:20', Rule::unique('programas_curriculares')->ignore($programa->id)],
-            'nombre' => ['required', 'string', 'max:255'],
-            'nivel' => ['required', Rule::in(['pregrado', 'posgrado'])],
-        ]);
+        $validated = $request->validated();
 
         $programa->update($validated);
 

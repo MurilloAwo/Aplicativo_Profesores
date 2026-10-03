@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\StoreEntidadExternaRequest;
+use App\Http\Requests\Admin\UpdateEntidadExternaRequest;
 use App\Models\EntidadExterna;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -34,15 +36,9 @@ class EntidadExternaController extends Controller
         return view('admin.entidades.create');
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(StoreEntidadExternaRequest $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'nombre' => ['required', 'string', 'max:255'],
-            'nit' => ['nullable', 'string', 'max:20', 'unique:entidades_externas,nit'],
-            'sector' => ['nullable', 'string', 'max:100'],
-            'ciudad' => ['nullable', 'string', 'max:100'],
-            'contacto' => ['nullable', 'string', 'max:255'],
-        ]);
+        $validated = $request->validated();
 
         EntidadExterna::create($validated);
 
@@ -57,15 +53,9 @@ class EntidadExternaController extends Controller
         return view('admin.entidades.edit', compact('entidad'));
     }
 
-    public function update(Request $request, EntidadExterna $entidade): RedirectResponse
+    public function update(UpdateEntidadExternaRequest $request, EntidadExterna $entidade): RedirectResponse
     {
-        $validated = $request->validate([
-            'nombre' => ['required', 'string', 'max:255'],
-            'nit' => ['nullable', 'string', 'max:20', Rule::unique('entidades_externas')->ignore($entidade->id)],
-            'sector' => ['nullable', 'string', 'max:100'],
-            'ciudad' => ['nullable', 'string', 'max:100'],
-            'contacto' => ['nullable', 'string', 'max:255'],
-        ]);
+        $validated = $request->validated();
 
         $entidade->update($validated);
 

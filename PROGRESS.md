@@ -69,18 +69,18 @@ Leyenda: `[x]` hecha y probada · `[~]` implementada, sin probar · `[ ]` pendie
 - [x] Pruebas Feature — `ConsolidadoAdminTest` (5 pruebas, 27 aserciones) OK
 
 ## F8. Endurecimiento
-- [ ] Form Requests en todos los formularios
-- [ ] Mensajes de validación en español (`lang/es`)
-- [ ] Paginación y búsqueda en listados
-- [ ] Manejo de errores (`app/Exceptions/Handler.php`, vistas 403/404/419/500)
-- [ ] Revisión de seguridad: CSRF, autorización en cada ruta, subida de archivos
+- [x] Form Requests en todos los formularios
+- [x] Mensajes de validación en español (`lang/es`)
+- [x] Paginación y búsqueda en listados
+- [x] Manejo de errores (`app/Exceptions/Handler.php`, vistas 403/404/419/500)
+- [x] Revisión de seguridad: CSRF, autorización en cada ruta, subida de archivos
 
 ## Criterio de salida
-- [ ] Todas las tareas marcadas
-- [ ] `php artisan --version` = Laravel 10.x
-- [ ] `php artisan test` pasa completo
-- [ ] Flujo profesor de prueba: login → grupos → actividad con evidencia y criterio → PDF y Excel
-- [ ] Prueba explícita: profesor no accede a datos de otro
+- [x] Todas las tareas marcadas
+- [x] `php artisan --version` = Laravel 10.x (Laravel 10.50.3)
+- [x] `php artisan test` pasa completo (89 pruebas, 432 aserciones)
+- [x] Flujo profesor de prueba: login → grupos → actividad con evidencia y criterio → PDF y Excel (`FlujoCompletoDocenteTest`)
+- [x] Prueba explícita: profesor no accede a datos de otro (`ActividadesEvidenciasTest`, `EndurecimientoYSeguridadTest`, `AutorizacionYRolesTest`)
 
 ---
 

@@ -59,7 +59,9 @@ class ConsolidadoDepartamentoController extends Controller
 
     public function exportPdf(Request $request): Response
     {
-        $periodo = PeriodoAcademico::findOrFail($request->input('periodo_id'));
+        $periodo = $request->filled('periodo_id')
+            ? PeriodoAcademico::findOrFail($request->input('periodo_id'))
+            : (PeriodoAcademico::actual() ?? abort(404, 'No hay período académico activo disponible.'));
 
         $consolidado = $this->service->obtenerConsolidadoPeriodo($periodo);
 
@@ -74,7 +76,9 @@ class ConsolidadoDepartamentoController extends Controller
 
     public function exportExcel(Request $request): BinaryFileResponse
     {
-        $periodo = PeriodoAcademico::findOrFail($request->input('periodo_id'));
+        $periodo = $request->filled('periodo_id')
+            ? PeriodoAcademico::findOrFail($request->input('periodo_id'))
+            : (PeriodoAcademico::actual() ?? abort(404, 'No hay período académico activo disponible.'));
 
         $consolidado = $this->service->obtenerConsolidadoPeriodo($periodo);
 

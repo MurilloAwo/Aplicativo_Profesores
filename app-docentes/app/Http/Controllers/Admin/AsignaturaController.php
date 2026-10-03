@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\StoreAsignaturaRequest;
+use App\Http\Requests\Admin\UpdateAsignaturaRequest;
 use App\Models\Asignatura;
 use App\Models\ProgramaCurricular;
 use Illuminate\Http\RedirectResponse;
@@ -41,15 +43,9 @@ class AsignaturaController extends Controller
         return view('admin.asignaturas.create', compact('programas'));
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(StoreAsignaturaRequest $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'codigo' => ['required', 'string', 'max:20', 'unique:asignaturas,codigo'],
-            'nombre' => ['required', 'string', 'max:255'],
-            'creditos' => ['required', 'integer', 'min:1', 'max:10'],
-            'tipologia' => ['nullable', 'string', 'max:60'],
-            'programa_curricular_id' => ['required', 'exists:programas_curriculares,id'],
-        ]);
+        $validated = $request->validated();
 
         Asignatura::create($validated);
 
@@ -64,15 +60,9 @@ class AsignaturaController extends Controller
         return view('admin.asignaturas.edit', compact('asignatura', 'programas'));
     }
 
-    public function update(Request $request, Asignatura $asignatura): RedirectResponse
+    public function update(UpdateAsignaturaRequest $request, Asignatura $asignatura): RedirectResponse
     {
-        $validated = $request->validate([
-            'codigo' => ['required', 'string', 'max:20', Rule::unique('asignaturas')->ignore($asignatura->id)],
-            'nombre' => ['required', 'string', 'max:255'],
-            'creditos' => ['required', 'integer', 'min:1', 'max:10'],
-            'tipologia' => ['nullable', 'string', 'max:60'],
-            'programa_curricular_id' => ['required', 'exists:programas_curriculares,id'],
-        ]);
+        $validated = $request->validated();
 
         $asignatura->update($validated);
 

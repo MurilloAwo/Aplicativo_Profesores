@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\StorePeriodoRequest;
+use App\Http\Requests\Admin\UpdatePeriodoRequest;
 use App\Models\PeriodoAcademico;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -24,13 +26,9 @@ class PeriodoAcademicoController extends Controller
         return view('admin.periodos.create');
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(StorePeriodoRequest $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'codigo' => ['required', 'string', 'max:10', 'unique:periodos_academicos,codigo'],
-            'fecha_inicio' => ['required', 'date'],
-            'fecha_fin' => ['required', 'date', 'after:fecha_inicio'],
-        ]);
+        $validated = $request->validated();
 
         $periodo = PeriodoAcademico::create([
             'codigo' => $validated['codigo'],
@@ -49,13 +47,9 @@ class PeriodoAcademicoController extends Controller
         return view('admin.periodos.edit', compact('periodo'));
     }
 
-    public function update(Request $request, PeriodoAcademico $periodo): RedirectResponse
+    public function update(UpdatePeriodoRequest $request, PeriodoAcademico $periodo): RedirectResponse
     {
-        $validated = $request->validate([
-            'codigo' => ['required', 'string', 'max:10', Rule::unique('periodos_academicos')->ignore($periodo->id)],
-            'fecha_inicio' => ['required', 'date'],
-            'fecha_fin' => ['required', 'date', 'after:fecha_inicio'],
-        ]);
+        $validated = $request->validated();
 
         $periodo->update($validated);
 
